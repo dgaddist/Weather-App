@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-GLhlTQ8iRABdZLl6O3oVMWSktQOp6b7In1Zl3/Jr59b6EGGoI1aFkw7cmDA6j6gD"
+      crossorigin="anonymous"
+    />
+    <link rel="stylesheet" href="src/styles.css" />
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.1.2/dist/axios.min.js"></script>
+    <title>Weather App</title>
+  </head>
+
+  <body>
+    <div class="container">
+      <div class="card border-info mb-3" style="max-width: 40rem">
+        <div class="card-body">
+          <h5 class="card-title">
+            <form id="search-button">
+              <input
+                type="text"
+                id="city-input"
+                placeholder="Enter a city:"
+                autofocus="on"
+              />
+              <input id="submit-button" type="submit" value="Search" />
+              <input
+                id="current-button"
+                type="submit"
+                value="Current Location"
+              />
+            </form>
+          </h5>
+          <p class="card-text"></p>
+          <h1 id="city-heading">
+            <div class="currentloc">Miami, Florida</div>
+          </h1>
+          <h2>
+            <img src="images/cloudy.png" width="50px" />
+            <span class="displaytemp" id="temp-display">75</span>
+            <span class="maintemp"> <a href="#" id="far-display">°F </a></span>
+            <span class="holder">|</span>
+            <span class="maintemp2"> <a href="#" id="cel-display">°C </a></span>
+          </h2>
+          <h3>
+            <div class="w1">Precipitation: 15%</div>
+            <div class="w2">Humidity: 83%</div>
+            <div class="w3">Wind: 2mph</div>
+          </h3>
+          <h4>
+            <div class="date" id="display-date">Monday</div>
+            <div class="time" id="display-time">8:00 AM</div>
+            <div class="feels">Scattered thunderstorms</div>
+          </h4>
+          <div class="row">
+            <div class="col-2">
+              <div class="weekday">Tue</div>
+              <img src="images/cloudy.png" width="40px" /> <br />
+              <span class="weektemp">86°</span>
+              <span class="weekcelcius">73°</span>
+            </div>
+            <div class="col-2">
+              <div class="weekday">Wed</div>
+              <img src="images/lightning.png" width="40px" /> <br />
+              <span class="weektemp">88°</span>
+              <span class="weekcelcius">70°</span>
+            </div>
+            <div class="col-2">
+              <div class="weekday">Thur</div>
+              <img src="images/lightning.png" width="40px" /> <br />
+              <span class="weektemp">86°</span>
+              <span class="weekcelcius">70°</span>
+            </div>
+            <div class="col-2">
+              <div class="weekday">Fri</div>
+              <img src="images/lightning.png" width="40px" /> <br />
+              <span class="weektemp">84°</span>
+              <span class="weekcelcius">70°</span>
+            </div>
+            <div class="col-2">
+              <div class="weekday">Sat</div>
+              <img src="images/sunny.png" width="40px" /> <br />
+              <span class="weektemp">88°</span>
+              <span class="weekcelcius">70°</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="hosted">
+      Hosted with <a href="https://www.netlify.com/">Netlify</a> Hosted with
+      <a href="https://github.com/dgaddist/github-hosting.git">Github</a>
+    </div>
+    <script src="src/index.js"></script>
+  </body>
+</html>
