@@ -17,7 +17,7 @@
 
   <body>
     <div class="container">
-      <div class="card border-info mb-3" style="max-width: 40rem">
+      <div class="card mx-auto" style="max-width: 40rem">
         <div class="card-body">
           <h5 class="card-title">
             <form id="search-button">
@@ -41,7 +41,7 @@
           </h1>
           <div class="container">
             <div class="row">
-              <div class="col-4">
+              <div class="col-sm-4">
                 <img src="images/cloudy.png" width="50px" />
                 <span class="displaytemp" id="temp-display">75</span>
                 <span class="maintemp">
@@ -52,14 +52,16 @@
                   <a href="#" id="cel-display">°C </a></span
                 >
               </div>
-              <div class="col-3">
+              <div class="col-sm-4">
                 <ul>
-                  <li><div class="w1">Precipitation: 15%</div></li>
-                  <li><div class="w2">Humidity: 83%</div></li>
-                  <li><div class="w3">Wind: 2mph</div></li>
+                  <div class="display-features">
+                    <li><div class="w1">Precipitation: 15%</div></li>
+                    <li><div class="w2">Humidity: 83%</div></li>
+                    <li><div class="w3">Wind: 2mph</div></li>
+                  </div>
                 </ul>
               </div>
-              <div class="col-4">
+              <div class="col-sm-4">
                 <ul>
                   <li><div class="date" id="display-date">Monday</div></li>
                   <li><div class="time" id="display-time">8:00 AM</div></li>
