@@ -38,7 +38,8 @@ function showFahrenheit() {
 
 let fahrenheitLink = document.querySelector("#far-display");
 fahrenheitLink.addEventListener("click", showFahrenheit);
-//When user searches for a temp display temp and city name
+//When user searches for a city display temp and city name
+//Fahrenheit response
 function getCityName(results) {
   results.preventDefault();
   let cityName = document.querySelector("#city-input");
@@ -50,13 +51,44 @@ function getCityName(results) {
 let city = document.querySelector("#search-button");
 city.addEventListener("submit", getCityName);
 
-function showTemp(response) {
+function showTemp(response, response3) {
   let displaytemp = document.querySelector("#temp-display");
-  displaytemp.innerHTML = Math.round(response.data.main.temp);
+  displaytemp.innerHTML = Math.round((response.data.main.temp * 9) / 5 + 32);
 }
 let apiKey = "17bdca836095d7c1bad24c5c24dff182";
 
-//Current location
+//Celcius response on searched city ((I feel like i can shorten these two))
+function getCel(results2) {
+  results2.preventDefault();
+  let cityName2 = document.querySelector("#city-input");
+  let apiUrl2 = `https://api.openweathermap.org/data/2.5/weather?q=${cityName2.value}&appid=17bdca836095d7c1bad24c5c24dff182&units=metric`;
+  axios.get(apiUrl2).then(showCityCelcius);
+}
+
+let celciusClick = document.querySelector("#cel-display");
+celciusClick.addEventListener("click", getCel);
+
+function showCityCelcius(response2) {
+  let displayCel = document.querySelector("#temp-display");
+  displayCel.innerHTML = Math.round(response2.data.main.temp);
+}
+//Switch to Farh response on searched city
+function getFar(results3) {
+  results3.preventDefault();
+  let cityName3 = document.querySelector("#city-input");
+  let apiUrl3 = `https://api.openweathermap.org/data/2.5/weather?q=${cityName3.value}&appid=17bdca836095d7c1bad24c5c24dff182&units=metric`;
+  axios.get(apiUrl3).then(showCityFar);
+}
+
+let farClick = document.querySelector("#far-display");
+farClick.addEventListener("click", getFar);
+
+function showCityFar(response3) {
+  let displayFar = document.querySelector("#temp-display");
+  displayFar.innerHTML = Math.round((response3.data.main.temp * 9) / 5 + 32);
+}
+
+//Current location button & response
 let locationResponse = document.querySelector("#current-button");
 function getLocation(locresults) {
   locresults.preventDefault();
@@ -73,7 +105,9 @@ function showLocation(position) {
 
 function finalLocation(finalResponse) {
   let cityLocationTemp = document.querySelector("#temp-display");
-  cityLocationTemp.innerHTML = Math.round(finalResponse.data.main.temp);
+  cityLocationTemp.innerHTML = Math.round(
+    (finalResponse.data.main.temp * 9) / 5 + 32
+  );
   let cityLocationName = document.querySelector("#city-heading");
   cityLocationName.innerHTML = finalResponse.data.name;
 }
