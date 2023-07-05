@@ -13,6 +13,9 @@
   border-width: 1px;
   font-size: 18px;
 }
+#display-description {
+  text-transform: capitalize;
+}
 h1,
 .currentloc {
   font-family: Arial, Helvetica, sans-serif;

@@ -55,9 +55,20 @@
               <div class="col-sm-4">
                 <ul>
                   <div class="display-features">
-                    <li><div class="w1">Precipitation: 15%</div></li>
-                    <li><div class="w2">Humidity: 83%</div></li>
-                    <li><div class="w3">Wind: 2mph</div></li>
+                    <li><div class="w1">Precipitation: 0%</div></li>
+                    <li>
+                      <div class="w2">
+                        Humidity:<span class="humidity-results" id="humidity"
+                          >83</span
+                        >%
+                      </div>
+                    </li>
+                    <li>
+                      <div class="w3">
+                        Wind:
+                        <span class="wind-results" id="windspeed">2</span>mph
+                      </div>
+                    </li>
                   </div>
                 </ul>
               </div>
@@ -65,7 +76,11 @@
                 <ul>
                   <li><div class="date" id="display-date">Monday</div></li>
                   <li><div class="time" id="display-time">8:00 AM</div></li>
-                  <li><div class="feels">Scattered thunderstorms</div></li>
+                  <li>
+                    <div class="feels" id="display-description">
+                      Scattered thunderstorms
+                    </div>
+                  </li>
                 </ul>
               </div>
             </div>

@@ -18,10 +18,30 @@ displayDate.innerHTML = `${day}`;
 let displayTime = document.querySelector("#display-time");
 
 let hours = currentTime.getHours();
+if (hours < 10) {
+  hours = `0${hours}`;
+}
 let minutes = currentTime.getMinutes();
-
+if (minutes < 10) {
+  minutes = `0${minutes}`;
+}
 displayTime.innerHTML = `${hours}:${minutes}`;
-
+//main homepage miami search
+function displayTemperature(response) {
+  let miaDisplay = document.querySelector("#temp-display");
+  miaDisplay.innerHTML = Math.round((response.data.main.temp * 9) / 5 + 32);
+  let miaDisplayname = document.querySelector("#city-heading");
+  miaDisplayname.innerHTML = response.data.name;
+  let miaDisplaydescrip = document.querySelector("#display-description");
+  miaDisplaydescrip.innerHTML = response.data.weather[0].description;
+  let miaHumidity = document.querySelector("#humidity");
+  miaHumidity.innerHTML = response.data.main.humidity;
+  let miamiWind = document.querySelector("#windspeed");
+  miamiWind.innerHTML = Math.round(response.data.wind.speed * 3.6);
+}
+let apiKey = "17bdca836095d7c1bad24c5c24dff182";
+let apiUrlm = `https://api.openweathermap.org/data/2.5/weather?q=Miami&appid=${apiKey}&units=metric`;
+axios.get(apiUrlm).then(displayTemperature);
 //degree celcius click
 function showCelcius() {
   let h2 = document.querySelector("#temp-display");
@@ -55,7 +75,6 @@ function showTemp(response, response3) {
   let displaytemp = document.querySelector("#temp-display");
   displaytemp.innerHTML = Math.round((response.data.main.temp * 9) / 5 + 32);
 }
-let apiKey = "17bdca836095d7c1bad24c5c24dff182";
 
 //Celcius response on searched city ((I feel like i can shorten these two))
 function getCel(results2) {
@@ -111,3 +130,7 @@ function finalLocation(finalResponse) {
   let cityLocationName = document.querySelector("#city-heading");
   cityLocationName.innerHTML = finalResponse.data.name;
 }
+
+// now for description precip , humidty , and winds
+
+//image switch
