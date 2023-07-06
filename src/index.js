@@ -38,9 +38,15 @@ function displayTemperature(response) {
   miaHumidity.innerHTML = response.data.main.humidity;
   let miamiWind = document.querySelector("#windspeed");
   miamiWind.innerHTML = Math.round(response.data.wind.speed * 3.6);
+  let cloudyIcon = document.querySelector("#cloudy-icon");
+  cloudyIcon.setAttribute(
+    "src",
+    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+  );
 }
 let apiKey = "17bdca836095d7c1bad24c5c24dff182";
-let apiUrlm = `https://api.openweathermap.org/data/2.5/weather?q=Miami&appid=${apiKey}&units=metric`;
+let citySearch = "Miami";
+let apiUrlm = `https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&appid=${apiKey}&units=metric`;
 axios.get(apiUrlm).then(displayTemperature);
 //degree celcius click
 function showCelcius() {
