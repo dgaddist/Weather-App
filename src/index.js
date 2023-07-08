@@ -28,10 +28,10 @@ if (minutes < 10) {
 displayTime.innerHTML = `${hours}:${minutes}`;
 //main homepage miami search
 function displayTemperature(response) {
-  fahrenheitTemperature = response.data.main.temp;
+  celciusTemperature = response.data.main.temp;
 
   let miaDisplay = document.querySelector("#temp-display");
-  miaDisplay.innerHTML = Math.round((fahrenheitTemperature * 9) / 5 + 32);
+  miaDisplay.innerHTML = Math.round((celciusTemperature * 9) / 5 + 32);
   let miaDisplayname = document.querySelector("#city-heading");
   miaDisplayname.innerHTML = response.data.name;
   let miaDisplaydescrip = document.querySelector("#display-description");
@@ -61,8 +61,8 @@ function getCityName(results) {
 }
 function fahrenheitDisplay(event) {
   event.preventDefault();
-  let temperatureDisplay = document.querySelector("temp-display");
-  temperatureDisplay.innerHTML = fahrenheitTemperature;
+  let temperatureDisplay = document.querySelector("#temp-display");
+  temperatureDisplay.innerHTML = Math.round((celciusTemperature * 9) / 5 + 32);
 }
 
 let fahrenheitClick = document.querySelector("#far-display");
@@ -71,22 +71,26 @@ fahrenheitClick.addEventListener("click", fahrenheitDisplay);
 function celciusDisplay(event) {
   event.preventDefault();
   let temperatureDisplay = document.querySelector("#temp-display");
-  let celciusResults = (fahrenheitTemperature / 9) * 5 - 32;
+  fahrClick.classList.remove("active");
+  celciusClick.classList.add("active");
+  let celciusResults = celciusTemperature;
   temperatureDisplay.innerHTML = Math.round(celciusResults);
 }
 function fahrDisplay(event) {
   event.preventDefault();
+  fahrClick.classList.add("active");
+  celciusClick.classList.remove("active");
   let temperatureDisplay = document.querySelector("#temp-display");
-  temperatureDisplay.innerHTML = Math.round(fahrenheitTemperature);
+  temperatureDisplay.innerHTML = Math.round((celciusTemperature * 9) / 5 + 32);
 }
 
-let fahrenheitTemperature = null;
+let celciusTemperature = null;
 
 let celciusClick = document.querySelector("#cel-display");
 celciusClick.addEventListener("click", celciusDisplay);
 
 let fahrClick = document.querySelector("#far-display");
-celciusClick.addEventListener("click", fahrDisplay);
+fahrClick.addEventListener("click", fahrDisplay);
 
 let cityForm = document.querySelector("#search-button");
 cityForm.addEventListener("submit", getCityName);
