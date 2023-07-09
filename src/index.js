@@ -68,6 +68,8 @@ function fahrenheitDisplay(event) {
 let fahrenheitClick = document.querySelector("#far-display");
 fahrenheitClick.addEventListener("click", fahrenheitDisplay);
 
+//fahr & celcius button
+
 function celciusDisplay(event) {
   event.preventDefault();
   let temperatureDisplay = document.querySelector("#temp-display");
@@ -96,3 +98,27 @@ let cityForm = document.querySelector("#search-button");
 cityForm.addEventListener("submit", getCityName);
 
 search("Miami");
+
+//current location
+function showPosition(position) {
+  let lat = position.coords.latitude;
+  let long = position.coords.longitude;
+  let apiUrlLocation = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=cb286bad3607984b41ed10c8de5cf00e&units=metric`;
+  axios.get(apiUrlLocation).then(locationSearch);
+}
+
+function currentLocation() {
+  navigator.geolocation.getCurrentPosition(showPosition);
+}
+
+let locationbutton = document.querySelector("#current-button");
+locationbutton.addEventListener("click", currentLocation);
+
+function locationSearch(response) {
+  let currentlocationTemperature = document.querySelector("#temp-display");
+  currentlocationTemperature.innerHTML = Math.round(
+    (response.data.main.temp * 9) / 5 + 32
+  );
+  let currentLocationName = document.querySelector("#city-heading");
+  currentLocationName = response.data.name;
+}
