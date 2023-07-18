@@ -26,31 +26,63 @@ if (minutes < 10) {
   minutes = `0${minutes}`;
 }
 displayTime.innerHTML = `${hours}:${minutes}`;
+//forecast
+function displayForecast() {
+  let forecastElement = document.querySelector("#weather-forecast");
+
+  let forecastHTML = `<div class="row">`;
+  let days = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri"];
+  days.forEach(function (day) {
+    forecastHTML =
+      forecastHTML +
+      `
+    <div class="col-2">
+   <div class="weather-forecast" id="weather-forecast">
+                <div class="weekday">${day}</div>
+                <img src="images/cloudy.png" width="40px" /> <br />
+                <span class="weektemp">86°</span>
+                <span class="weekcelcius">73°</span>
+              </div>
+              </div>
+          `;
+  });
+
+  forecastHTML = forecastHTML + `</div>`;
+  forecastElement.innerHTML = forecastHTML;
+}
 //main homepage miami search
+function getForecast(coordinates) {
+  console.log(coordinates);
+  let apiKey = "bec44c2o3f75134a454be6e601b6f1td";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon={lon}&lat={lat}&key=${apiKey}`;
+  console.log(apiUrl);
+}
 function displayTemperature(response) {
-  celciusTemperature = response.data.main.temp;
+  celciusTemperature = response.data.temperature.current;
 
   let miaDisplay = document.querySelector("#temp-display");
   miaDisplay.innerHTML = Math.round((celciusTemperature * 9) / 5 + 32);
   let miaDisplayname = document.querySelector("#city-heading");
-  miaDisplayname.innerHTML = response.data.name;
+  miaDisplayname.innerHTML = response.data.city;
   let miaDisplaydescrip = document.querySelector("#display-description");
-  miaDisplaydescrip.innerHTML = response.data.weather[0].description;
+  miaDisplaydescrip.innerHTML = response.data.condition.description;
 
   let miaHumidity = document.querySelector("#humidity");
-  miaHumidity.innerHTML = response.data.main.humidity;
+  miaHumidity.innerHTML = response.data.temperature.humidity;
   let miamiWind = document.querySelector("#windspeed");
   miamiWind.innerHTML = Math.round(response.data.wind.speed * 3.6);
   let cloudyIcon = document.querySelector("#cloudy-icon");
   cloudyIcon.setAttribute(
     "src",
-    `http://openweathermap.org/img/wn/${response.data.weather[0].icon}@2x.png`
+    `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
+
+  getForecast(response.data.coord);
 }
 //form
 function search(citySearch) {
-  let apiKey = "17bdca836095d7c1bad24c5c24dff182";
-  let apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=${citySearch}&appid=${apiKey}&units=metric`;
+  let apiKey = "bec44c2o3f75134a454be6e601b6f1td";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${citySearch}&key=bec44c2o3f75134a454be6e601b6f1td&units=metric`;
   axios.get(apiUrl).then(displayTemperature);
 }
 
@@ -98,6 +130,7 @@ let cityForm = document.querySelector("#search-button");
 cityForm.addEventListener("submit", getCityName);
 
 search("Miami");
+displayForecast();
 
 //current location
 function showPosition(position) {
