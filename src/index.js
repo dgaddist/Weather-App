@@ -1,4 +1,3 @@
-//Current date & time display
 let currentTime = new Date();
 
 let displayDate = document.querySelector("#display-date");
@@ -26,25 +25,41 @@ if (minutes < 10) {
   minutes = `0${minutes}`;
 }
 displayTime.innerHTML = `${hours}:${minutes}`;
+
+function formatDay(timestamp) {
+  let date = new Date(timestamp * 1000);
+  let day = date.getDay();
+  let days = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+
+  return days[day];
+}
 //forecast
-function displayForecast() {
+function displayForecast(response) {
+  let forecast = response.data.daily;
   let forecastElement = document.querySelector("#weather-forecast");
 
   let forecastHTML = `<div class="row">`;
-  let days = ["Sun", "Mon", "Tues", "Wed", "Thur", "Fri"];
-  days.forEach(function (day) {
-    forecastHTML =
-      forecastHTML +
-      `
+  forecast.forEach(function (forecastDay, index) {
+    if (index < 5) {
+      forecastHTML =
+        forecastHTML +
+        `
     <div class="col-2">
    <div class="weather-forecast" id="weather-forecast">
-                <div class="weekday">${day}</div>
-                <img src="images/cloudy.png" width="40px" /> <br />
-                <span class="weektemp">86°</span>
-                <span class="weekcelcius">73°</span>
+                <div class="weekday">${formatDay(forecastDay.time)}</div>
+                <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
+                  forecastDay.condition.icon
+                }.png" width="40px" /> <br />
+                <span class="weektemp">
+                 ${Math.round(forecastDay.temperature.maximum)}
+                °</span>
+                <span class="weekcelcius">${Math.round(
+                  forecastDay.temperature.minimum
+                )}</span>
               </div>
               </div>
           `;
+    }
   });
 
   forecastHTML = forecastHTML + `</div>`;
@@ -52,12 +67,12 @@ function displayForecast() {
 }
 //main homepage miami search
 function getForecast(coordinates) {
-  console.log(coordinates);
   let apiKey = "bec44c2o3f75134a454be6e601b6f1td";
-  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon={lon}&lat={lat}&key=${apiKey}`;
-  console.log(apiUrl);
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
+  axios.get(apiUrl).then(displayForecast);
 }
 function displayTemperature(response) {
+  console.log(response.data);
   celciusTemperature = response.data.temperature.current;
 
   let miaDisplay = document.querySelector("#temp-display");
@@ -77,7 +92,7 @@ function displayTemperature(response) {
     `http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${response.data.condition.icon}.png`
   );
 
-  getForecast(response.data.coord);
+  getForecast(response.data.coordinates);
 }
 //form
 function search(citySearch) {
@@ -130,7 +145,6 @@ let cityForm = document.querySelector("#search-button");
 cityForm.addEventListener("submit", getCityName);
 
 search("Miami");
-displayForecast();
 
 //current location
 function showPosition(position) {
