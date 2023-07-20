@@ -49,7 +49,7 @@ function displayForecast(response) {
                 <div class="weekday">${formatDay(forecastDay.time)}</div>
                 <img src="http://shecodes-assets.s3.amazonaws.com/api/weather/icons/${
                   forecastDay.condition.icon
-                }.png" width="40px" /> <br />
+                }.png" width="50px" /> <br />
                 <span class="weektemp">
                  ${Math.round(forecastDay.temperature.maximum)}
                 °</span>
@@ -106,60 +106,37 @@ function getCityName(results) {
   let cityName = document.querySelector("#city-input");
   search(cityName.value);
 }
-function fahrenheitDisplay(event) {
-  event.preventDefault();
-  let temperatureDisplay = document.querySelector("#temp-display");
-  temperatureDisplay.innerHTML = Math.round((celciusTemperature * 9) / 5 + 32);
-}
-
-let fahrenheitClick = document.querySelector("#far-display");
-fahrenheitClick.addEventListener("click", fahrenheitDisplay);
-
-//fahr & celcius button
-
-function celciusDisplay(event) {
-  event.preventDefault();
-  let temperatureDisplay = document.querySelector("#temp-display");
-  fahrClick.classList.remove("active");
-  celciusClick.classList.add("active");
-  let celciusResults = celciusTemperature;
-  temperatureDisplay.innerHTML = Math.round(celciusResults);
-}
-function fahrDisplay(event) {
-  event.preventDefault();
-  fahrClick.classList.add("active");
-  celciusClick.classList.remove("active");
-  let temperatureDisplay = document.querySelector("#temp-display");
-  temperatureDisplay.innerHTML = Math.round((celciusTemperature * 9) / 5 + 32);
-}
-let fahrClick = document.querySelector("#far-display");
-fahrClick.addEventListener("click", fahrDisplay);
 
 let cityForm = document.querySelector("#search-button");
 cityForm.addEventListener("submit", getCityName);
 
 search("Miami");
 
-//current location
-function showPosition(position) {
-  let lat = position.coords.latitude;
-  let long = position.coords.longitude;
-  let apiUrlLocation = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=cb286bad3607984b41ed10c8de5cf00e&units=imperial`;
-  axios.get(apiUrlLocation).then(locationSearch);
-}
+//current location trial
 
-function currentLocation() {
-  navigator.geolocation.getCurrentPosition(showPosition);
-}
-
-let locationbutton = document.querySelector("#current-button");
-locationbutton.addEventListener("click", currentLocation);
-
-function locationSearch(response) {
-  let currentlocationTemperature = document.querySelector("#temp-display");
-  currentlocationTemperature.innerHTML = Math.round(
+function displayCurrentLocation(response) {
+  let currentlocationTemp = document.querySelector("#temp-display");
+  currentlocationTemp.innerHTML = Math.round(
     (response.data.main.temp * 9) / 5 + 32
   );
   let currentLocationName = document.querySelector("#city-heading");
   currentLocationName = response.data.name;
+}
+
+function getCurrentLocation() {
+  let apiKey = "bec44c2o3f75134a454be6e601b6f1td";
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=imperial`;
+  axios.get(apiUrl).then(displayCurrentLocation);
+}
+
+getCurrentLocation(coordinates);
+
+function currentLocationButton(results) {
+  results.preventDefault();
+}
+let locationForm = document.querySelector("#current-button");
+locationForm.addEventListener("click", currentLocationButton);
+//current location
+function currentLocation() {
+  navigator.geolocation.getCurrentPosition(showPosition);
 }

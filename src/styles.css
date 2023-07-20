@@ -49,6 +49,8 @@ ul {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 12px;
   color: rgb(155, 158, 162);
+  position: relative;
+  right: 25px;
 }
 .date,
 .time {
@@ -62,22 +64,21 @@ ul {
   font-style: italic;
   font-weight: lighter;
 }
+.date,
+.time,
+.feels {
+  position: relative;
+  bottom: 20px;
+}
 .weekcelcius {
   color: black;
   font-weight: bold;
-}
-.row {
-  position: relative;
-  left: 30px;
 }
 .hosted {
   text-align: center;
   font-family: "Courier New", Courier, monospace;
 }
-.weather-temp .active {
-  color: black;
-  cursor: default;
-}
-.weather-temp .active:hover {
-  text-decoration: none;
+.weather-forecast {
+  position: relative;
+  left: 30px;
 }
