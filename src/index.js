@@ -55,7 +55,7 @@ function displayForecast(response) {
                 °</span>
                 <span class="weekcelcius">${Math.round(
                   forecastDay.temperature.minimum
-                )}</span>
+                )}°</span>
               </div>
               </div>
           `;
@@ -68,7 +68,7 @@ function displayForecast(response) {
 //main homepage miami search
 function getForecast(coordinates) {
   let apiKey = "bec44c2o3f75134a454be6e601b6f1td";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=metric`;
+  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayForecast);
 }
 function displayTemperature(response) {
@@ -132,12 +132,6 @@ function fahrDisplay(event) {
   let temperatureDisplay = document.querySelector("#temp-display");
   temperatureDisplay.innerHTML = Math.round((celciusTemperature * 9) / 5 + 32);
 }
-
-let celciusTemperature = null;
-
-let celciusClick = document.querySelector("#cel-display");
-celciusClick.addEventListener("click", celciusDisplay);
-
 let fahrClick = document.querySelector("#far-display");
 fahrClick.addEventListener("click", fahrDisplay);
 
@@ -150,7 +144,7 @@ search("Miami");
 function showPosition(position) {
   let lat = position.coords.latitude;
   let long = position.coords.longitude;
-  let apiUrlLocation = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=cb286bad3607984b41ed10c8de5cf00e&units=metric`;
+  let apiUrlLocation = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${long}&appid=cb286bad3607984b41ed10c8de5cf00e&units=imperial`;
   axios.get(apiUrlLocation).then(locationSearch);
 }
 
