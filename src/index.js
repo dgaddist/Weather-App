@@ -33,6 +33,13 @@ function formatDay(timestamp) {
 
   return days[day];
 }
+//current loc
+function displayCurrentLocation(response) {
+  let currentlocationTemp = document.querySelector("#temp-display");
+  currentlocationTemp.innerHTML = Math.round(response.data.temperature);
+  let currentLocationName = document.querySelector("#city-heading");
+  currentLocationName = response.data.city;
+}
 //forecast
 function displayForecast(response) {
   let forecast = response.data.daily;
@@ -66,13 +73,19 @@ function displayForecast(response) {
   forecastElement.innerHTML = forecastHTML;
 }
 //main homepage miami search
+function getCurrentLocation(position) {
+  let apiKey = "bec44c2o3f75134a454be6e601b6f1td";
+  let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${position.coords.longitude}&lat=${position.coords.latitude}&key=bec44c2o3f75134a454be6e601b6f1td&units=metric`;
+  axios.get(apiUrl).then(displayTemperature);
+}
+
 function getForecast(coordinates) {
   let apiKey = "bec44c2o3f75134a454be6e601b6f1td";
   let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=imperial`;
   axios.get(apiUrl).then(displayForecast);
 }
+
 function displayTemperature(response) {
-  console.log(response.data);
   celciusTemperature = response.data.temperature.current;
 
   let miaDisplay = document.querySelector("#temp-display");
@@ -106,37 +119,15 @@ function getCityName(results) {
   let cityName = document.querySelector("#city-input");
   search(cityName.value);
 }
+function currentLocationButton(results) {
+  results.preventDefault();
+  navigator.geolocation.getCurrentPosition(getCurrentLocation);
+}
 
 let cityForm = document.querySelector("#search-button");
 cityForm.addEventListener("submit", getCityName);
 
-search("Miami");
-
-//current location trial
-
-function displayCurrentLocation(response) {
-  let currentlocationTemp = document.querySelector("#temp-display");
-  currentlocationTemp.innerHTML = Math.round(
-    (response.data.main.temp * 9) / 5 + 32
-  );
-  let currentLocationName = document.querySelector("#city-heading");
-  currentLocationName = response.data.name;
-}
-
-function getCurrentLocation() {
-  let apiKey = "bec44c2o3f75134a454be6e601b6f1td";
-  let apiUrl = `https://api.shecodes.io/weather/v1/forecast?lon=${coordinates.longitude}&lat=${coordinates.latitude}&key=${apiKey}&units=imperial`;
-  axios.get(apiUrl).then(displayCurrentLocation);
-}
-
-getCurrentLocation(coordinates);
-
-function currentLocationButton(results) {
-  results.preventDefault();
-}
 let locationForm = document.querySelector("#current-button");
 locationForm.addEventListener("click", currentLocationButton);
-//current location
-function currentLocation() {
-  navigator.geolocation.getCurrentPosition(showPosition);
-}
+
+search("Miami");
