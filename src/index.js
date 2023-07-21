@@ -33,14 +33,12 @@ function formatDay(timestamp) {
 
   return days[day];
 }
-//current loc
 function displayCurrentLocation(response) {
   let currentlocationTemp = document.querySelector("#temp-display");
   currentlocationTemp.innerHTML = Math.round(response.data.temperature);
   let currentLocationName = document.querySelector("#city-heading");
   currentLocationName = response.data.city;
 }
-//forecast
 function displayForecast(response) {
   let forecast = response.data.daily;
   let forecastElement = document.querySelector("#weather-forecast");
@@ -72,7 +70,6 @@ function displayForecast(response) {
   forecastHTML = forecastHTML + `</div>`;
   forecastElement.innerHTML = forecastHTML;
 }
-//main homepage miami search
 function getCurrentLocation(position) {
   let apiKey = "bec44c2o3f75134a454be6e601b6f1td";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?lon=${position.coords.longitude}&lat=${position.coords.latitude}&key=bec44c2o3f75134a454be6e601b6f1td&units=metric`;
@@ -107,7 +104,6 @@ function displayTemperature(response) {
 
   getForecast(response.data.coordinates);
 }
-//form
 function search(citySearch) {
   let apiKey = "bec44c2o3f75134a454be6e601b6f1td";
   let apiUrl = `https://api.shecodes.io/weather/v1/current?query=${citySearch}&key=bec44c2o3f75134a454be6e601b6f1td&units=metric`;
